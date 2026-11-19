@@ -1,0 +1,160 @@
+{
+  "organization": "Shko-Online",
+  "project": "Shko.Online",
+  "pipeline": "storybook-ado-pane demo",
+  "buildId": 1359,
+  "buildNumber": "20261119.7",
+  "title": "docs: show the Storybook tab in screenshots",
+  "result": "succeeded",
+  "reason": "Manually triggered",
+  "repository": "storybook-ado-pane",
+  "branch": "main",
+  "commit": "6bd524847e1c6d4a80f771ba72307aaba17d6346",
+  "started": "2026-11-19T19:45:05.6792087Z",
+  "durationMs": 36180,
+  "pipelineFile": "samples/demo/azure-pipelines.dev.yml",
+  "publishYaml": "- task: PublishStorybookDev@1\n  displayName: Publish Storybook\n  inputs:\n    storybookDir: $(demoDir)/storybook-static\n    title: Design system\n\n- task: PublishStorybookDev@1\n  displayName: Publish viewer self-test\n  inputs:\n    storybookDir: scripts/fixtures/selftest\n    artifactName: storybook-selftest\n    title: Viewer self-test",
+  "marketplaceTask": "PublishStorybook@1",
+  "issues": [],
+  "jobs": [
+    {
+      "name": "Job",
+      "result": "succeeded",
+      "durationMs": 20343,
+      "steps": [
+        {
+          "name": "Initialize job",
+          "result": "succeeded",
+          "durationMs": 1893
+        },
+        {
+          "name": "Checkout storybook-ado-pane@main to s",
+          "result": "succeeded",
+          "durationMs": 2287
+        },
+        {
+          "name": "UseNode",
+          "result": "succeeded",
+          "durationMs": 316
+        },
+        {
+          "name": "Install dependencies",
+          "result": "succeeded",
+          "durationMs": 9600
+        },
+        {
+          "name": "Build Storybook",
+          "result": "succeeded",
+          "durationMs": 3864
+        },
+        {
+          "name": "Publish Storybook",
+          "result": "succeeded",
+          "durationMs": 1287,
+          "task": "PublishStorybookDev@1",
+          "log": [
+            "##[section]Starting: Publish Storybook",
+            "==============================================================================",
+            "Task         : Publish Storybook (dev)",
+            "Description  : Publish a built Storybook as a build artifact so it can be browsed in the \"Storybook\" tab of the pipeline run.",
+            "Version      : 1.0.263231923",
+            "Author       : Shko Online",
+            "Help         : Publishes the folder written by `storybook build` as a build artifact of the run. Open the run and select the **Storybook** tab to browse the stories, with no download needed.",
+            "==============================================================================",
+            "[Host] Selected Node version: Node24 (Strategy: Node24Strategy)",
+            "Storybook folder : /home/runner/work/1/s/samples/demo/storybook-static",
+            "Storybook        : 10.6.5 (@storybook/react-vite), 15 stories, 5 docs pages",
+            "Files            : 58 (7.6 MB, 2.2 MB zipped)",
+            "Artifact         : storybook (storybook.zip)",
+            "Title            : Design system",
+            "",
+            "Open this pipeline run and select the \"Storybook\" tab to browse the stories.",
+            "##[section]Async Command Start: Upload Artifact",
+            "Uploading 1 files",
+            "File upload succeed.",
+            "Upload '/home/runner/work/_temp/storybook-AQDYwA/storybook.zip' to file container: '#/40540418/storybook'",
+            "Associated artifact 1100 with build 1359",
+            "##[section]Async Command End: Upload Artifact",
+            "##[section]Finishing: Publish Storybook"
+          ],
+          "artifact": "storybook"
+        },
+        {
+          "name": "Publish viewer self-test",
+          "result": "succeeded",
+          "durationMs": 507,
+          "task": "PublishStorybookDev@1",
+          "log": [
+            "##[section]Starting: Publish viewer self-test",
+            "==============================================================================",
+            "Task         : Publish Storybook (dev)",
+            "Description  : Publish a built Storybook as a build artifact so it can be browsed in the \"Storybook\" tab of the pipeline run.",
+            "Version      : 1.0.263231923",
+            "Author       : Shko Online",
+            "Help         : Publishes the folder written by `storybook build` as a build artifact of the run. Open the run and select the **Storybook** tab to browse the stories, with no download needed.",
+            "==============================================================================",
+            "[Host] Selected Node version: Node24 (Strategy: Node24Strategy)",
+            "Storybook folder : /home/runner/work/1/s/scripts/fixtures/selftest",
+            "Storybook        : unknown version",
+            "Files            : 13 (8.3 KB, 4.9 KB zipped)",
+            "Artifact         : storybook-selftest (storybook.zip)",
+            "Title            : Viewer self-test",
+            "",
+            "Open this pipeline run and select the \"Storybook\" tab to browse the stories.",
+            "##[section]Async Command Start: Upload Artifact",
+            "Uploading 1 files",
+            "File upload succeed.",
+            "Upload '/home/runner/work/_temp/storybook-vj3fx3/storybook.zip' to file container: '#/40540418/storybook-selftest'",
+            "Associated artifact 1101 with build 1359",
+            "##[section]Async Command End: Upload Artifact",
+            "##[section]Finishing: Publish viewer self-test"
+          ],
+          "artifact": "storybook-selftest"
+        },
+        {
+          "name": "Post-job: Checkout storybook-ado-pane@main to s",
+          "result": "succeeded",
+          "durationMs": 233
+        },
+        {
+          "name": "Finalize Job",
+          "result": "succeeded",
+          "durationMs": 23
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "storybook",
+      "properties": {
+        "storybookpane": "1",
+        "storybooktitle": "Design system",
+        "storybookarchive": "storybook.zip",
+        "storybookentry": "index.html",
+        "storybookpublished": "2026-11-19T19:45:27.444Z",
+        "storybookfiles": "58",
+        "storybookversion": "10.6.5",
+        "storybookframework": "@storybook/react-vite",
+        "storybookstories": "15",
+        "storybookdocs": "5",
+        "artifactsize": "2304192"
+      },
+      "file": "storybook.zip"
+    },
+    {
+      "name": "storybook-selftest",
+      "properties": {
+        "storybookpane": "1",
+        "storybooktitle": "Viewer self-test",
+        "storybookarchive": "storybook.zip",
+        "storybookentry": "index.html",
+        "storybookpublished": "2026-11-19T19:45:28.521Z",
+        "storybookfiles": "13",
+        "artifactsize": "5026"
+      },
+      "file": "storybook-selftest.zip"
+    }
+  ],
+  "assets": "runs/20261119.7/"
+}

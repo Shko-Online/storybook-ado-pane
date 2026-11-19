@@ -67,9 +67,10 @@ Why a zip, when an artifact can hold a folder: Azure DevOps handles an artifact 
 | [src/sw](src/sw) | Service worker |
 | [src/shared](src/shared) | What the task and the tab agree on, and what the pages and the worker say to each other |
 | [src/dev](src/dev) | Local harness that runs the viewer without Azure DevOps |
+| [stories](stories) | The demo: a Storybook of the extension itself, with a recreated pipeline run (its data in [stories/demo/run.json](stories/demo/run.json), its artifacts in [stories/assets](stories/assets)) and the tab's states |
 | [samples/demo](samples/demo) | Sample Storybook and an example `azure-pipelines.yml` |
 | [scripts/fixtures/selftest](scripts/fixtures/selftest) | A page that does what Storybooks do and lists what works, to check the viewer |
-| [test](test) | Tests of the task, the archive and the task–tab contract |
+| [test](test) | Tests of the task, the archive, the task–tab contract and the demo's run |
 | [vss-extension.json](vss-extension.json) | Extension manifest |
 
 ## Develop
@@ -85,11 +86,24 @@ npm run build      # everything the .vsix needs, into build/
 npm run fixtures   # runs the real task on the sample and the self-test → .fixtures/*.zip
 npm run dev        # http://localhost:5173/host.html  (viewer in a frame from another site, like Azure DevOps)
                    # http://localhost:5173/dev.html   (viewer top-level, handy for devtools)
+npm run storybook  # http://localhost:6007           (the demo of a pipeline run, and the tab's states)
 npm test
 npm run typecheck
 ```
 
 The harness shows the zips in `.fixtures/`, and any Storybook zip you pick. Add `?nosw` to its address to see what the tab does when the browser refuses the service worker, and `?theme=dark` or `?theme=light` for the Azure DevOps theme.
+
+## The demo
+
+`npm run storybook` opens a Storybook of the extension itself ([stories](stories)), not to be confused with the sample's, which it shows. Its first page recreates a pipeline run of the sample project, with the real **Storybook** tab on the Storybooks that run published. The other pages show the tab in each of its states: waiting for a run, downloading, a browser that does not allow the service worker, and so on.
+
+The run is a real one, and only the page around the tab is recreated. This reads it from Azure DevOps, with your `az login`:
+
+```sh
+npm run capture-run -- --build 1359   # the build id, from the address of the run
+```
+
+It writes [stories/demo/run.json](stories/demo/run.json), which is what the page shows about the run, and into [stories/assets](stories/assets) the artifacts the run published, as the tab downloads them. Only what the page shows is taken, field by field ([stories/demo/capture.ts](stories/demo/capture.ts)); who queued the run is not. Both are published with the demo, so read the diff before you commit it.
 
 ## Production and dev builds
 

@@ -70,6 +70,8 @@ await bundle('src/viewer/bridge.ts', 'sb/bridge.js');
 copy('src/tab/tab.html', path.join(web, 'tab.html'));
 copy('src/tab/viewer.html', path.join(web, 'viewer.html'));
 copy('src/tab/tab.css', path.join(web, 'tab.css'));
+// viewer.html's icon. Next to the page, so that it is found wherever the folder is served from.
+copy('images/icon.png', path.join(web, 'icon.png'));
 
 if (dev) {
   await bundle('src/dev/dev.ts', 'dev.js');

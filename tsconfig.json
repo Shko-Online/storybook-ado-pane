@@ -9,8 +9,9 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": []
+    "types": [],
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "stories/**/*.ts", ".storybook/*.ts"],
   "exclude": ["src/sw/**/*.ts"]
 }

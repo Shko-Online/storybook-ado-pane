@@ -61,6 +61,11 @@ export interface ViewerOptions {
    * Storybook's entry page, and `count` the number of Storybooks the run has.
    */
   onNavigate?(place: Required<Place>, entry: string, count: number): void;
+  /**
+   * Starts the service worker that shows a Storybook from memory, {@link ensureServiceWorker}
+   * unless given. Stories and tests replace it, to show a browser that does not allow one.
+   */
+  startServiceWorker?(): Promise<void>;
 }
 
 export const FRAME_SANDBOX = [
@@ -314,7 +319,7 @@ export class StorybookViewer {
     }
 
     try {
-      await ensureServiceWorker();
+      await (this.options.startServiceWorker ?? ensureServiceWorker)();
     } catch (err) {
       if (token !== this.loadToken) return;
       this.showBlocked(err instanceof ServiceWorkerUnavailable ? err.reason : describe(err));
@@ -387,7 +392,7 @@ export class StorybookViewer {
     window.clearTimeout(this.startTimer);
     if (session === this.host.session) {
       this.status.hidden = true;
-      } else if (!this.status.hidden) {
+    } else if (!this.status.hidden) {
       // The page came from the network instead of the service worker.
       this.showBlocked('The service worker did not answer for the Storybook.');
     }

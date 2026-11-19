@@ -31,10 +31,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import JSZip from 'jszip';
+import { accessToken } from '../azure.mjs';
 
 const MARKETPLACE = 'https://marketplace.visualstudio.com';
-/** Application id of Azure DevOps, which the Marketplace belongs to. */
-const AZURE_DEVOPS_RESOURCE = '499b84ac-1321-427f-aa17-267ca6975798';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const args = process.argv.slice(2);
@@ -73,20 +72,6 @@ function devVersion() {
   const pad = (n, width) => String(n).padStart(width, '0');
   const patch = `${now.getUTCFullYear() % 100}${pad(dayOfYear, 3)}${pad(now.getUTCHours(), 2)}${pad(now.getUTCMinutes(), 2)}`;
   return `${major}.${minor}.${Number(patch)}`;
-}
-
-function accessToken() {
-  try {
-    const token = execFileSync(
-      'az',
-      ['account', 'get-access-token', '--resource', AZURE_DEVOPS_RESOURCE, '--query', 'accessToken', '-o', 'tsv'],
-      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
-    ).trim();
-    if (!token) throw new Error('empty token');
-    return token;
-  } catch (err) {
-    throw new Error(`Could not get an access token from the Azure CLI. Run \`az login\` first. (${String(err.message).split('\n')[0]})`);
-  }
 }
 
 async function call(token, method, url, { body, type, accept = 'application/json;api-version=7.1-preview.2' } = {}) {

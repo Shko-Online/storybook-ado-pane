@@ -50,9 +50,7 @@ http
     try {
       [base, rel] = url.pathname.startsWith('/fixtures/')
         ? [fixtures, decodeURIComponent(url.pathname.slice('/fixtures/'.length))]
-        : url.pathname.startsWith('/images/')
-          ? [path.join(root, 'images'), decodeURIComponent(url.pathname.slice('/images/'.length))]
-          : [web, url.pathname === '/' ? 'host.html' : decodeURIComponent(url.pathname.slice(1))];
+        : [web, url.pathname === '/' ? 'host.html' : decodeURIComponent(url.pathname.slice(1))];
     } catch {
       res.writeHead(400).end('Bad request');
       return;
