@@ -1,0 +1,76 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "336a2210-9ff7-42c5-90a8-49f39fbeecb0",
+  "name": "PublishStorybook",
+  "friendlyName": "Publish Storybook",
+  "description": "Publish a built Storybook as a build artifact so it can be browsed in the \"Storybook\" tab of the pipeline run.",
+  "helpMarkDown": "Packs the folder written by `storybook build` into a zip and publishes it as a build artifact of the run. Open the run and select the **Storybook** tab to browse the stories, with no download needed.",
+  "category": "Utility",
+  "visibility": [
+    "Build"
+  ],
+  "runsOn": [
+    "Agent"
+  ],
+  "author": "Shko Online",
+  "version": {
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 0
+  },
+  "minimumAgentVersion": "2.144.0",
+  "instanceNameFormat": "Publish Storybook",
+  "inputs": [
+    {
+      "name": "storybookDir",
+      "type": "filePath",
+      "label": "Storybook folder",
+      "defaultValue": "storybook-static",
+      "required": true,
+      "helpMarkDown": "Folder that contains the built Storybook: the output of `storybook build`, `storybook-static` unless you passed `--output-dir`. Relative paths are resolved against `$(System.DefaultWorkingDirectory)`."
+    },
+    {
+      "name": "artifactName",
+      "type": "string",
+      "label": "Artifact name",
+      "defaultValue": "storybook",
+      "required": true,
+      "helpMarkDown": "Name of the build artifact that holds the Storybook, as `storybook.zip`. It is listed with the other artifacts of the run and must differ from their names. Give each Storybook its own artifact name when a run publishes more than one."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "label": "Title",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Name shown in the tab, for example `Design system`. Defaults to the artifact name."
+    },
+    {
+      "name": "ifMissing",
+      "type": "pickList",
+      "label": "When the Storybook folder is missing",
+      "defaultValue": "warn",
+      "required": false,
+      "options": {
+        "warn": "Warn and succeed",
+        "error": "Fail the task",
+        "ignore": "Do nothing"
+      },
+      "helpMarkDown": "What to do when the Storybook folder or its `index.html` cannot be found (for example when the build step was skipped)."
+    }
+  ],
+  "execution": {
+    "Node24": {
+      "target": "index.js",
+      "argumentFormat": ""
+    },
+    "Node20_1": {
+      "target": "index.js",
+      "argumentFormat": ""
+    },
+    "Node16": {
+      "target": "index.js",
+      "argumentFormat": ""
+    }
+  }
+}

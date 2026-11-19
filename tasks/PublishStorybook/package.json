@@ -1,0 +1,15 @@
+{
+  "name": "publish-storybook",
+  "description": "Azure Pipelines task: publish a built Storybook as a build artifact",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "type": "commonjs",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^5.281.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43"
+  },
+  "private": true,
+  "version": "1.0.0"
+}
