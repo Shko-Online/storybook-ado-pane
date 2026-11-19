@@ -1,0 +1,10 @@
+node_modules/
+build/
+out/
+.fixtures/
+storybook-static/
+*.vsix
+.DS_Store
+*storybook.log
+vss-extension.dev.generated.json
+.taskkey
