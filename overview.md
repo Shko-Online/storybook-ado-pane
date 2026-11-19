@@ -2,6 +2,8 @@
 
 Browse your [Storybook](https://storybook.js.org/) right inside Azure Pipelines. Publish the built Storybook from your pipeline, open the run, and select the **Storybook** tab. Reviewers see the components exactly as that run built them. There is nothing to deploy and nothing to download.
 
+**[Try it first in the interactive demo](https://shko-online.github.io/storybook-ado-pane/iframe.html?id=demo-pipeline-run--sample-run&viewMode=story)**: a recreated pipeline run with the real tab, no installation needed.
+
 ## What you get
 
 - **A pipeline task** (`PublishStorybook@1`) that publishes the folder written by `storybook build` as a build artifact of the run, packed into one zip so that it is quick to publish and quick to open.

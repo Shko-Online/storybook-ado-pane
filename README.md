@@ -2,6 +2,8 @@
 
 Publish a built [Storybook](https://storybook.js.org/) from Azure Pipelines and browse it in a **Storybook** tab on the run page. The Storybook is a build artifact of the run, a zip; the tab downloads it, unpacks it in memory and shows it. Nothing is deployed, and reviewers download nothing. User-facing docs live in [overview.md](overview.md), which is also the Marketplace page.
 
+**[Try the interactive demo](https://shko-online.github.io/storybook-ado-pane/iframe.html?id=demo-pipeline-run--sample-run&viewMode=story)**: a pipeline run of the sample project, recreated in the browser with the real **Storybook** tab. Nothing to install. The [same site](https://shko-online.github.io/storybook-ado-pane/) shows the tab in each of its states.
+
 ```yaml
 - script: npx storybook build
   displayName: Build Storybook
