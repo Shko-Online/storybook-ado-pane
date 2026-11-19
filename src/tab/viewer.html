@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Storybook</title>
+    <link rel="stylesheet" href="tab.css" />
+    <link rel="icon" href="../images/icon.png" />
+    <style>
+      body { display: flex; flex-direction: column; }
+      .sbp-stage { flex: 1; min-height: 0; }
+    </style>
+  </head>
+  <body>
+    <header class="sbp-toolbar">
+      <span class="sbp-meta" id="title"></span>
+      <span class="sbp-actions" id="actions"></span>
+    </header>
+    <div id="notice" class="sbp-notice" role="status" hidden>
+      <span class="sbp-notice-text"></span>
+      <button type="button" class="sbp-notice-close" aria-label="Dismiss">×</button>
+    </div>
+    <main class="sbp-stage">
+      <iframe
+        id="frame"
+        class="sbp-frame"
+        title="Storybook"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-modals allow-downloads"
+        allow="clipboard-write; fullscreen"
+      ></iframe>
+      <div id="status" class="sbp-status" role="status"></div>
+    </main>
+    <script src="viewer.js"></script>
+  </body>
+</html>

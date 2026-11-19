@@ -1,0 +1,375 @@
+/*
+   Copyright 2026 Shko Online LLC <sales@shko.online>
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+ */
+
+/* Colours come from the Azure DevOps theme (SDK applyTheme) with light-theme fallbacks. */
+:root {
+  --sbp-bg: var(--background-color, #ffffff);
+  --sbp-fg: var(--text-primary-color, rgba(0, 0, 0, 0.9));
+  --sbp-muted: var(--text-secondary-color, rgba(0, 0, 0, 0.55));
+  --sbp-border: rgba(var(--palette-neutral-8, 234, 234, 234), 1);
+  --sbp-button-bg: rgba(var(--palette-neutral-4, 244, 244, 244), 1);
+  --sbp-button-hover: rgba(var(--palette-neutral-8, 234, 234, 234), 1);
+  --sbp-accent: var(--communication-background, #0078d4);
+  --sbp-notice-bg: rgba(var(--status-warning-background-rgb, 255, 244, 206), 1);
+  --sbp-error: var(--status-error-foreground, #a4262c);
+  --sbp-link: var(--communication-foreground, #005a9e);
+}
+
+/*
+  viewer.html (a Storybook in its own browser tab) has no Azure DevOps theme. Its header takes
+  the light or dark mode of the page that opened it, or the system's (see viewer.ts).
+*/
+:root[data-viewer-theme="dark"] {
+  --sbp-bg: #1b1c1d;
+  --sbp-fg: rgba(255, 255, 255, 0.9);
+  --sbp-muted: rgba(255, 255, 255, 0.62);
+  --sbp-border: rgba(255, 255, 255, 0.12);
+  --sbp-button-bg: rgba(255, 255, 255, 0.08);
+  --sbp-button-hover: rgba(255, 255, 255, 0.14);
+  --sbp-link: rgb(152, 198, 255);
+  --sbp-error: rgb(241, 112, 123);
+  color-scheme: dark;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--sbp-bg);
+  color: var(--sbp-fg);
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+}
+
+#app {
+  height: 100%;
+}
+
+.sbp {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sbp-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-bottom: 1px solid var(--sbp-border);
+}
+
+.sbp-picker {
+  font: inherit;
+  color: inherit;
+  background: var(--sbp-bg);
+  border: 1px solid var(--sbp-border);
+  border-radius: 2px;
+  padding: 4px 8px;
+  max-width: 100%;
+}
+
+.sbp-meta {
+  flex: 1 1 160px;
+  color: var(--sbp-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.sbp-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.sbp-button {
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  background: var(--sbp-button-bg);
+  border: none;
+  border-radius: 2px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.sbp-button:hover:not(:disabled) {
+  background: var(--sbp-button-hover);
+}
+
+.sbp-button-primary {
+  background: var(--sbp-accent);
+  color: #fff;
+}
+
+.sbp-button-primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  background: var(--sbp-accent);
+}
+
+.sbp-button:focus-visible,
+.sbp-picker:focus-visible {
+  outline: 2px solid var(--sbp-accent);
+  outline-offset: 1px;
+}
+
+.sbp-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.sbp-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--sbp-notice-bg);
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.sbp-notice-text {
+  flex: 1;
+}
+
+.sbp-notice-close {
+  font-size: 18px;
+  line-height: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.sbp-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.sbp-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /*
+    The frame's color-scheme is the Storybook's preferred colour scheme. It follows the page's
+    light or dark theme (data-ado-theme, set from the Azure DevOps theme), so a Storybook whose
+    interface follows the preference, as it does unless it was given a theme, matches Azure
+    DevOps. Without a page theme, `normal` leaves it to the system.
+    Canvas is the matching backdrop while the Storybook is loading.
+  */
+  background: Canvas;
+  color-scheme: normal;
+}
+
+:root[data-ado-theme="light"] .sbp-frame {
+  color-scheme: light;
+}
+
+:root[data-ado-theme="dark"] .sbp-frame {
+  color-scheme: dark;
+}
+
+/*
+  Messages cover the frame instead of replacing it: the frame keeps its size, so a Storybook
+  that is starting underneath lays itself out for the space it really has.
+*/
+.sbp-status {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  padding: 48px 16px;
+  overflow: auto;
+  text-align: center;
+  color: var(--sbp-muted);
+  background: var(--sbp-bg);
+  line-height: 1.5;
+}
+
+.sbp-status > * {
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sbp-status[data-kind="busy"]::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 12px;
+  border: 3px solid var(--sbp-border);
+  border-top-color: var(--sbp-accent);
+  border-radius: 50%;
+  animation: sbp-spin 0.8s linear infinite;
+}
+
+.sbp-status[data-kind="error"] {
+  color: var(--sbp-error);
+}
+
+.sbp-status[data-kind="blocked"] {
+  color: var(--sbp-fg);
+}
+
+.sbp-status p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.sbp-status .sbp-status-detail {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--sbp-muted);
+}
+
+/* --- "Built for free by Shko Online" ------------------------------------- */
+
+.sbp-upsell-link {
+  font: inherit;
+  font-size: 12px;
+  color: var(--sbp-muted);
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sbp-upsell-link:hover {
+  color: var(--sbp-fg);
+  text-decoration: underline;
+}
+
+.sbp-upsell-link:focus-visible,
+.sbp-upsell a:focus-visible,
+.sbp-upsell button:focus-visible {
+  outline: 2px solid var(--sbp-accent);
+  outline-offset: 1px;
+}
+
+.sbp-upsell {
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 1px solid var(--sbp-border);
+  border-radius: 6px;
+  background: var(--sbp-bg);
+  color: var(--sbp-fg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.sbp-upsell::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.sbp-upsell-body {
+  position: relative;
+  padding: 24px;
+  line-height: 1.5;
+}
+
+.sbp-upsell h2 {
+  margin: 0 32px 12px 0;
+  font-size: 18px;
+}
+
+.sbp-upsell p,
+.sbp-upsell ul {
+  margin: 0 0 12px;
+}
+
+.sbp-upsell ul {
+  padding-left: 20px;
+}
+
+.sbp-upsell li + li {
+  margin-top: 4px;
+}
+
+.sbp-upsell a {
+  color: var(--sbp-link);
+}
+
+.sbp-upsell-close-form {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  margin: 0;
+}
+
+.sbp-upsell-close {
+  font-size: 20px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  color: var(--sbp-muted);
+  background: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.sbp-upsell-close:hover {
+  background: var(--sbp-button-hover);
+}
+
+.sbp-upsell-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.sbp-upsell-actions .sbp-button {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sbp-upsell-actions .sbp-button-primary {
+  color: #fff;
+}
+
+.sbp-upsell-fine {
+  font-size: 12px;
+  color: var(--sbp-muted);
+}
+
+.sbp-upsell-legal {
+  margin-top: 16px;
+  margin-bottom: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--sbp-border);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@keyframes sbp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sbp-status[data-kind="busy"]::before {
+    animation: none;
+  }
+}

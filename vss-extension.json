@@ -1,0 +1,94 @@
+{
+  "manifestVersion": 1,
+  "id": "storybook-ado-pane",
+  "publisher": "shko-online",
+  "version": "0.0.0",
+  "name": "Storybook Viewer",
+  "description": "Publish your Storybook from a pipeline and browse its stories in a tab of the run, right in the browser.",
+  "public": true,
+  "categories": [
+    "Azure Pipelines"
+  ],
+  "tags": [
+    "storybook",
+    "storybookjs",
+    "stories",
+    "components",
+    "design system",
+    "ui review",
+    "frontend",
+    "preview"
+  ],
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "icons": {
+    "default": "images/icon.png"
+  },
+  "content": {
+    "details": {
+      "path": "overview.md"
+    },
+    "license": {
+      "path": "LICENSE"
+    }
+  },
+  "links": {
+    "repository": {
+      "uri": "https://github.com/Shko-Online/storybook-ado-pane"
+    },
+    "support": {
+      "uri": "https://github.com/Shko-Online/storybook-ado-pane/issues"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/Shko-Online/storybook-ado-pane"
+  },
+  "scopes": [
+    "vso.build"
+  ],
+  "files": [
+    {
+      "path": "build/web",
+      "addressable": true,
+      "packagePath": "web"
+    },
+    {
+      "path": "build/tasks/PublishStorybook"
+    },
+    {
+      "path": "images",
+      "addressable": true
+    }
+  ],
+  "contributions": [
+    {
+      "id": "publish-storybook-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "build/tasks/PublishStorybook"
+      }
+    },
+    {
+      "id": "storybook-build-tab",
+      "type": "ms.vss-build-web.build-results-tab",
+      "description": "Shows the Storybooks published by the Publish Storybook task.",
+      "targets": [
+        "ms.vss-build-web.build-results-view"
+      ],
+      "properties": {
+        "name": "Storybook",
+        "uri": "web/tab.html",
+        "supportsTasks": [
+          "336a2210-9ff7-42c5-90a8-49f39fbeecb0"
+        ]
+      }
+    }
+  ]
+}
