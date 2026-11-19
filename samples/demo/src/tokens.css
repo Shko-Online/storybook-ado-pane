@@ -1,0 +1,19 @@
+/* Design tokens of the sample components. */
+:root {
+  --demo-font: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --demo-accent: #186254;
+  --demo-accent-contrast: #ffffff;
+  --demo-surface: #ffffff;
+  --demo-text: #1f2328;
+  --demo-muted: #59636e;
+  --demo-border: #d1d9e0;
+  --demo-success: #1a7f37;
+  --demo-warning: #9a6700;
+  --demo-danger: #cf222e;
+  --demo-radius: 6px;
+}
+
+body {
+  font-family: var(--demo-font);
+  color: var(--demo-text);
+}

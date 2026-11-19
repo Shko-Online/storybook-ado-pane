@@ -1,0 +1,53 @@
+.demo-button {
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--demo-radius);
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.demo-button:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.demo-button:focus-visible {
+  outline: 2px solid var(--demo-accent);
+  outline-offset: 2px;
+}
+
+.demo-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.demo-button--primary {
+  color: var(--demo-accent-contrast);
+  background: var(--demo-accent);
+}
+
+.demo-button--secondary {
+  color: var(--demo-text);
+  background: var(--demo-surface);
+  border-color: var(--demo-border);
+}
+
+.demo-button--danger {
+  color: #ffffff;
+  background: var(--demo-danger);
+}
+
+.demo-button--small {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.demo-button--medium {
+  padding: 7px 14px;
+  font-size: 14px;
+}
+
+.demo-button--large {
+  padding: 10px 20px;
+  font-size: 16px;
+}

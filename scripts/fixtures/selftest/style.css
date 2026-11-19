@@ -1,0 +1,4 @@
+body { font-family: sans-serif; margin: 16px; }
+li.pass { color: #1a7f37; }
+li.fail { color: #cf222e; font-weight: bold; }
+.css-image { width: 16px; height: 16px; background: url(nested/pixel.png); }

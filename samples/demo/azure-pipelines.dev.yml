@@ -1,0 +1,37 @@
+# For maintainers: tries the dev build of the extension on the sample, before a change is
+# released (see "Production and dev builds" in the README). It uses the dev build's own task,
+# PublishStorybookDev@1, and publishes a second "Storybook" to exercise the tab: the viewer's
+# self-test, a page that does what Storybooks do and lists what works.
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  demoDir: samples/demo
+
+steps:
+  - task: UseNode@1
+    inputs:
+      version: '22.x'
+
+  - script: npm ci
+    displayName: Install dependencies
+    workingDirectory: $(demoDir)
+
+  - script: npm run build-storybook
+    displayName: Build Storybook
+    workingDirectory: $(demoDir)
+
+  - task: PublishStorybookDev@1
+    displayName: Publish Storybook
+    inputs:
+      storybookDir: $(demoDir)/storybook-static
+      title: Design system
+
+  - task: PublishStorybookDev@1
+    displayName: Publish viewer self-test
+    inputs:
+      storybookDir: scripts/fixtures/selftest
+      artifactName: storybook-selftest
+      title: Viewer self-test

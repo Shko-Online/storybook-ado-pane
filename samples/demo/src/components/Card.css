@@ -1,0 +1,34 @@
+.demo-card {
+  width: 340px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 16px 20px;
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+  background: var(--demo-surface);
+  box-shadow: 0 1px 3px rgba(31, 35, 40, 0.08);
+}
+
+.demo-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.demo-card-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.demo-card-body {
+  margin: 0 0 16px;
+  color: var(--demo-muted);
+  line-height: 1.5;
+}
+
+.demo-card-actions {
+  display: flex;
+  gap: 8px;
+}

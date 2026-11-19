@@ -1,0 +1,29 @@
+.demo-run {
+  width: min(760px, 100vw - 32px);
+  font-family: var(--demo-font);
+  color: var(--demo-text);
+}
+
+.demo-run-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.demo-run-header h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 20px;
+}
+
+.demo-run-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.demo-run-cards .demo-card {
+  width: auto;
+}

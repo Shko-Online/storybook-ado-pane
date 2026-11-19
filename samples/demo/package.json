@@ -1,0 +1,22 @@
+{
+  "name": "storybook-ado-pane-demo",
+  "version": "1.0.0",
+  "description": "Sample Storybook used to exercise the Azure DevOps extension",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "10.6.5",
+    "@storybook/react-vite": "10.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "storybook": "10.6.5",
+    "typescript": "5.9.3",
+    "vite": "8.3.5"
+  }
+}

@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Welcome" />
+
+# Sample design system
+
+<img src="illustration.png" alt="" width="96" height="96" style={{ float: 'right', margin: '0 0 16px 16px' }} />
+
+This Storybook is the sample of the [Storybook Viewer](https://github.com/Shko-Online/storybook-ado-pane)
+extension for Azure DevOps. A pipeline builds it and publishes it with the **Publish Storybook** task, and the
+run page shows it in the **Storybook** tab.
+
+What you are looking at was not deployed anywhere: the tab downloaded the build artifact of the run, unpacked it
+in memory, and is showing it from there.
+
+## What is in it
+
+- **Components**: [Button](?path=/docs/components-button--docs), [Badge](?path=/docs/components-badge--docs) and
+  [Card](?path=/docs/components-card--docs), each with stories for its variants and a generated documentation page.
+- **Screens**: a [run summary](?path=/story/screens-run-summary--succeeded) composed from those components.
+
+## Publish your own
+
+```yaml
+- script: npx storybook build
+  displayName: Build Storybook
+
+- task: PublishStorybook@1
+  inputs:
+    storybookDir: storybook-static
+```

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Self-test · manager</title>
+    <style>
+      html, body { margin: 0; height: 100%; font-family: sans-serif; }
+      body { display: flex; flex-direction: column; }
+      header { padding: 8px 12px; background: #186254; color: #fff; }
+      iframe { flex: 1; border: 0; }
+    </style>
+  </head>
+  <body>
+    <!--
+      Not a Storybook: a page that does what Storybooks do (and a few things they should not),
+      so the viewer can be checked without one. index.html stands in for Storybook's manager,
+      iframe.html for the page that renders stories. Results are listed in iframe.html.
+    -->
+    <header>Viewer self-test <span id="where"></span></header>
+    <iframe id="preview" title="preview" src="iframe.html?id=selftest--checks&viewMode=story"></iframe>
+    <script>
+      document.getElementById('where').textContent = '· ' + location.pathname.split('/').slice(-2).join('/');
+      // Like Storybook, keep the current "story" in the address with the History API.
+      history.replaceState(null, '', '?path=/story/selftest--checks');
+    </script>
+  </body>
+</html>

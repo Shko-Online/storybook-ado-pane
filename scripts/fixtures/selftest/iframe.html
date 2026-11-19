@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Self-test · preview</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Viewer self-test</h1>
+    <ul id="results"></ul>
+    <p>
+      <a id="link-blank" href="iframe.html?opened=link" target="_blank">page in new tab (link)</a> ·
+      <button id="open" type="button">page in new tab (window.open)</button> ·
+      <a id="link-top" href="index.html?path=/story/selftest--top" target="_top">navigate the manager (_top)</a> ·
+      <a id="link-external" href="https://example.com/">another site</a> ·
+      <button id="register" type="button">register a service worker</button>
+    </p>
+    <img id="relative-image" src="nested/pixel.png" alt="" width="16" height="16" />
+    <img id="absolute-image" src="/abs/pixel.png" alt="" width="16" height="16" />
+    <div id="css-image" class="css-image"></div>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
