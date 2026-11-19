@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   build:
-    name: Typecheck, test and package
+    name: Typecheck, test, package and build Storybook
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -55,3 +55,7 @@ jobs:
           name: vsix
           path: out/*.vsix
           retention-days: 7
+
+      # The Storybook that is published to GitHub Pages from main (storybook.yml).
+      - name: Build Storybook
+        run: npm run build-storybook

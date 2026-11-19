@@ -95,7 +95,7 @@ The harness shows the zips in `.fixtures/`, and any Storybook zip you pick. Add 
 
 ## The demo
 
-`npm run storybook` opens a Storybook of the extension itself ([stories](stories)), not to be confused with the sample's, which it shows. Its first page recreates a pipeline run of the sample project, with the real **Storybook** tab on the Storybooks that run published. The other pages show the tab in each of its states: waiting for a run, downloading, a browser that does not allow the service worker, and so on.
+`npm run storybook` opens a Storybook of the extension itself ([stories](stories)), not to be confused with the sample's, which it shows. Its first page recreates a pipeline run of the sample project, with the real **Storybook** tab on the Storybooks that run published. The other pages show the tab in each of its states: waiting for a run, downloading, a browser that does not allow the service worker, and so on. Every push to `main` publishes it to GitHub Pages ([.github/workflows/storybook.yml](.github/workflows/storybook.yml)).
 
 The run is a real one, and only the page around the tab is recreated. This reads it from Azure DevOps, with your `az login`:
 
