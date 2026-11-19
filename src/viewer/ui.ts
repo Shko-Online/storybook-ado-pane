@@ -428,7 +428,7 @@ export class StorybookViewer {
       this.refs.length < 2 ? ref.label : '',
       stories !== undefined ? `${stories} ${stories === 1 ? 'story' : 'stories'}` : '',
       version ? `Storybook ${version}` : '',
-      files !== undefined ? `${files} files` : '',
+      files !== undefined ? `${files} ${files === 1 ? 'file' : 'files'}` : '',
       info?.publishedAt && !Number.isNaN(Date.parse(info.publishedAt))
         ? `published ${new Date(info.publishedAt).toLocaleString()}`
         : '',
