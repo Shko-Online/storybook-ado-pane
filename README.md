@@ -11,6 +11,22 @@ Publish a built [Storybook](https://storybook.js.org/) from Azure Pipelines and 
     storybookDir: storybook-static
 ```
 
+## Screenshots
+
+These come from a run of the [sample project](samples/demo). Its full pipeline is [samples/demo/azure-pipelines.yml](samples/demo/azure-pipelines.yml).
+
+The run page gets a **Storybook** tab with the Storybook the run built: the sidebar, the story, and its controls. The line above it says what was published.
+
+![A story in the Storybook tab of a pipeline run](docs/images/storybook-story.png)
+
+Documentation pages work as they do locally.
+
+![A documentation page in the Storybook tab](docs/images/storybook-docs.png)
+
+**Open in new tab** gives the Storybook the whole window, on the story you were looking at.
+
+![The Storybook in a browser tab of its own](docs/images/storybook-new-tab.png)
+
 ## How it works
 
 ```

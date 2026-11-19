@@ -10,6 +10,22 @@ Browse your [Storybook](https://storybook.js.org/) right inside Azure Pipelines.
 - **A Storybook for every run.** Open the run of a pull request to review its components, or an older run to see how they looked then.
 - **Several Storybooks in one run.** Publish one per package or app, and switch between them in the tab.
 
+## Screenshots
+
+From a run of the [sample project](https://github.com/Shko-Online/storybook-ado-pane/tree/main/samples/demo).
+
+**Stories.** The run page gets a **Storybook** tab with your Storybook in it: the sidebar, the story, and its controls.
+
+![A story in the Storybook tab of a pipeline run](docs/images/storybook-story.png)
+
+**Documentation.** Documentation pages work as they do in your Storybook.
+
+![A documentation page in the Storybook tab](docs/images/storybook-docs.png)
+
+**Open in new tab** gives the Storybook the whole window, on the story you were looking at.
+
+![The Storybook in a browser tab of its own](docs/images/storybook-new-tab.png)
+
 ## Get started
 
 1. Build your Storybook in the pipeline, as you do locally:
@@ -65,13 +81,15 @@ When a run publishes more than one Storybook, give each its own artifact name, a
 - **Runs in progress.** The tab checks for new Storybooks every few seconds until the run completes.
 - **Light and dark.** Storybook's interface follows the theme of Azure DevOps, unless your Storybook sets a theme of its own.
 - **Absolute paths work.** A Storybook that refers to its files from the root of a site (`/logo.png`) finds them, although it is not at the root of one here.
+- **Storybook versions.** Tested with Storybook 7, 8, 9 and 10, built with Vite and with webpack.
 - **Permissions.** The extension only asks for *Build (read)*, to read the artifacts of a run.
 
 ## Limitations
 
 - **Browsers that block storage for embedded pages.** The tab shows the Storybook with a service worker. A browser that blocks third-party cookies and storage, and private windows of some browsers, do not allow one in a page embedded in Azure DevOps. The tab then offers **Open in new tab**, where the Storybook works.
 - **Mock Service Worker.** For the same reason a Storybook cannot start a service worker of its own in the tab, so stories that mock requests with [Mock Service Worker](https://mswjs.io/) do not get their mocks. The tab tells you when a Storybook tries.
-- **Size.** The whole Storybook is downloaded before it opens. A very large one (hundreds of megabytes of static files) takes a while and needs that much memory.
+- **Size.** The whole Storybook is downloaded before it opens. One of 1,500 files and 38 MB opens in a few seconds; a very large one (hundreds of megabytes of static files) takes a while and needs that much memory.
+- **Azure DevOps Services.** The extension is developed for and tested on Azure DevOps Services (dev.azure.com).
 
 ## Trust
 
@@ -79,7 +97,7 @@ A Storybook is a web application, and the tab runs it in your browser. Its code 
 
 ## Privacy
 
-The extension has no telemetry. The Storybook is downloaded from your Azure DevOps organization and unpacked in your browser. It is not sent anywhere, and nothing is saved to disk. What a story loads from other sites (fonts, images, APIs) is up to the story.
+The extension has no telemetry. The Storybook is downloaded from your Azure DevOps organization and unpacked in the memory of your browser. Its files are not sent anywhere and are not saved to disk. What a story loads from other sites (fonts, images, APIs) is up to the story.
 
 ## Built for free by Shko Online
 
