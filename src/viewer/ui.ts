@@ -21,7 +21,7 @@ import { loadArchive, type StorybookArchive, type StorybookDetails } from './arc
 import { StorybookHost } from './host';
 import type { Place } from './place';
 import { ensureServiceWorker, ServiceWorkerUnavailable } from './sw-client';
-import { currentScheme, type Scheme } from './theme';
+import { currentScheme, watchScheme, type Scheme } from './theme';
 import { createUpsellLink } from './upsell';
 
 export interface StorybookRef {
@@ -113,6 +113,7 @@ export class StorybookViewer {
   private reported = '';
   private disposed = false;
   private readonly onMessage = (e: MessageEvent) => this.answerPopup(e);
+  private readonly stopWatchingScheme: () => void;
 
   constructor(
     root: HTMLElement,
@@ -159,6 +160,9 @@ export class StorybookViewer {
     this.wanted = options.start;
     // Storybook changes its address with the History API, which raises no event out here.
     this.watchTimer = window.setInterval(() => this.reportPlace(), 1_000);
+    // A Storybook reads the colour scheme once, when it starts. When the theme of the page
+    // changes under it (someone switches the theme of Azure DevOps), start it again in place.
+    this.stopWatchingScheme = watchScheme(() => this.restart());
   }
 
   /** Shows a place: another Storybook of the run, another page of the one on screen, or both. */
@@ -234,6 +238,7 @@ export class StorybookViewer {
     window.clearTimeout(this.startTimer);
     window.clearInterval(this.watchTimer);
     window.removeEventListener('message', this.onMessage);
+    this.stopWatchingScheme();
     this.unload();
   }
 
@@ -396,6 +401,12 @@ export class StorybookViewer {
       // The page came from the network instead of the service worker.
       this.showBlocked('The service worker did not answer for the Storybook.');
     }
+  }
+
+  /** Loads the page on screen again, where it is: the Storybook starts over, on the same story. */
+  private restart(): void {
+    if (!this.host || this.currentAddress() === undefined) return;
+    this.frame.contentWindow?.location.reload();
   }
 
   /** Empties the frame and stops serving the Storybook that was in it. */

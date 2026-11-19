@@ -40,3 +40,19 @@ export function currentScheme(): Scheme | undefined {
   const scheme = document.documentElement.dataset.adoTheme;
   return scheme === 'light' || scheme === 'dark' ? scheme : undefined;
 }
+
+/**
+ * Calls `listener` when the page's scheme changes (see {@link setScheme}), for example when
+ * someone switches the theme of Azure DevOps. Returns a function that stops it.
+ */
+export function watchScheme(listener: (scheme: Scheme | undefined) => void): () => void {
+  let last = currentScheme();
+  const observer = new MutationObserver(() => {
+    const next = currentScheme();
+    if (next === last) return;
+    last = next;
+    listener(next);
+  });
+  observer.observe(document.documentElement, { attributeFilter: ['data-ado-theme'] });
+  return () => observer.disconnect();
+}
