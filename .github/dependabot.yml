@@ -1,0 +1,49 @@
+version: 2
+
+# Version updates, once a week. Security updates are separate: they are switched on in
+# Settings → Advanced Security and open a pull request as soon as an advisory is published.
+#
+# Commit prefixes are build:/ci:, which semantic-release does not release (see release.yml),
+# so merging one of these pull requests does not publish to the Marketplace by itself.
+# Dependencies bundled into the extension ship with the next fix:/feat: release.
+#
+# The cooldown waits a few days before proposing a new version, so a compromised release
+# that is pulled quickly never reaches a pull request. It does not delay security updates.
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: build(deps)
+    groups:
+      npm-minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: /tasks/PublishStorybook
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: build(deps)
+    groups:
+      task-minor-and-patch:
+        update-types: [minor, patch]
+
+  # Actions are pinned to commit SHAs; Dependabot moves the SHA and the version comment together.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: ci(deps)
+    groups:
+      actions:
+        patterns: ["*"]
