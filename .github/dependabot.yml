@@ -35,6 +35,19 @@ updates:
       task-minor-and-patch:
         update-types: [minor, patch]
 
+  # The sample Storybook that the demo pipeline builds and publishes.
+  - package-ecosystem: npm
+    directory: /samples/demo
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: build(deps)
+    groups:
+      demo-minor-and-patch:
+        update-types: [minor, patch]
+
   # Actions are pinned to commit SHAs; Dependabot moves the SHA and the version comment together.
   - package-ecosystem: github-actions
     directory: /
