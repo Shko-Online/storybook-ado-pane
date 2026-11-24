@@ -22,6 +22,14 @@ updates:
     groups:
       npm-minor-and-patch:
         update-types: [minor, patch]
+    # Held on semantic-release 25: version 26 needs Node >=26.13 and runs on prerelease
+    # versions of its core and plugins. Preset 10 needs the changelog writer that ships
+    # with semantic-release 26, so under 25 it breaks the release notes. Move both together.
+    ignore:
+      - dependency-name: semantic-release
+        update-types: [version-update:semver-major]
+      - dependency-name: conventional-changelog-conventionalcommits
+        update-types: [version-update:semver-major]
 
   - package-ecosystem: npm
     directory: /tasks/PublishStorybook
