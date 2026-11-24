@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "type": "commonjs",
   "dependencies": {
-    "azure-pipelines-task-lib": "^5.281.2"
+    "azure-pipelines-task-lib": "^5.283.2"
   },
   "devDependencies": {
     "@types/node": "^20.19.43"
